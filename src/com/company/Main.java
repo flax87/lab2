@@ -58,7 +58,7 @@ public class Main {
 
 
 
-
+//Adding created instances to the list
         List<PRiceList> rooms = new ArrayList<>();
         rooms.add(P1);
         rooms.add(P2);
@@ -73,25 +73,32 @@ public class Main {
         rooms.add(L6);
 
 
-        int salary = rooms.stream().mapToInt(PRiceList::getPriceForTheDay).sum();
+        int room = rooms.stream().mapToInt(PRiceList::getPriceForTheDay).sum();
 
-
+        //Finding  the max price of  rooms
         PRiceList highestPriceRoom = rooms.stream()
                 .max(Comparator.comparing(PRiceList::getPriceForTheDay))
                 .orElse(null);
+        System.out.println("The most expensive room "+highestPriceRoom);
 
+        //Finding  the min price of rooms
         PRiceList lowestPriceRoom = rooms.stream()
                 .min(Comparator.comparingInt(PRiceList::getPriceForTheDay))
                 .orElse(null);
+        System.out.println("The cheapest room "+lowestPriceRoom);
 
+        //Medium price
         double average = rooms.stream().mapToInt(PRiceList::getPriceForTheDay)
                 .average().orElse(0);
+        System.out.println("Average room price "+average);
 
         int onlyBadPrice = rooms.stream().filter(el -> el instanceof OnlyBad)
                 .mapToInt(PRiceList::getPriceForTheDay).sum();
+        System.out.println("Price for all standard rooms "+onlyBadPrice);
 
         int luxPrice = rooms.stream().filter(el -> el instanceof Lux)
                 .mapToInt(PRiceList::getPriceForTheDay).sum();
+        System.out.println("Price for all deluxe rooms "+luxPrice);
 
         if ( luxPrice > onlyBadPrice) {
             System.out.println("Luxury rooms bring more profit than " +
